@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <title>Best products</title>
+    <h:outputStylesheet library="webjars" name="bootstrap/4.6.0/css/bootstrap.min-jsf.css"/>
+    <script type="text/javascript">
+        function reloadPage(message, channel, event) {
+            document.location.reload();
+            console.log('Message :: ' + message);
+            console.log('Channel :: ' + channel);
+            console.log('Event :: ' + event);
+        }
+    </script>
+</h:head>
+<h:body>
+    <div class="container">
+        <h:dataTable id="dataTable" class="table" value="#{standView.items}"
+                     var="item">
+            <h:column>
+                <f:facet name="header">#</f:facet>
+                #{standView.items.indexOf(item) + 1}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                #{item.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Price</f:facet>
+                #{item.price}
+            </h:column>
+<!--            <h:column>-->
+<!--                <f:facet name="header">Photo</f:facet>-->
+<!--                <h:graphicImage width="75" value="#{item.imgName}"/>-->
+<!--            </h:column>-->
+        </h:dataTable>
+    </div>
+
+    <f:websocket channel="stand" onmessage="reloadPage()" />
+
+</h:body>
+</html>
