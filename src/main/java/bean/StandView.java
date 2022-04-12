@@ -31,7 +31,7 @@ public class StandView implements Serializable {
     @Push(channel = "stand")
     private PushContext context;
 
-    private List<ItemDTO> items=new ArrayList<>();
+    private List<ItemDTO> items = new ArrayList<>();
 
     @PostConstruct
     public void init() {

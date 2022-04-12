@@ -7,14 +7,10 @@
     <meta charset="UTF-8"/>
     <title>Best products</title>
     <h:outputStylesheet library="webjars" name="bootstrap/4.6.0/css/bootstrap.min-jsf.css"/>
-    <script type="text/javascript">
-        function reloadPage(message, channel, event) {
-            document.location.reload();
-            console.log('Message :: ' + message);
-            console.log('Channel :: ' + channel);
-            console.log('Event :: ' + event);
-        }
-    </script>
+    <h:outputScript name = "js/jquery-3.1.1.min.js"/>
+    <h:outputScript name = "js/bootstrap.min.js"/>
+<!--    <h:outputStylesheet name="css/bootstrap.min.css" />-->
+
 </h:head>
 <h:body>
     <div class="container">
@@ -32,14 +28,28 @@
                 <f:facet name="header">Price</f:facet>
                 #{item.price}
             </h:column>
-<!--            <h:column>-->
-<!--                <f:facet name="header">Photo</f:facet>-->
-<!--                <h:graphicImage width="75" value="#{item.imgName}"/>-->
-<!--            </h:column>-->
+            <h:column>
+                <h:graphicImage width="75" value="resources/img/#{item.imgName}"/>
+            </h:column>
         </h:dataTable>
+<!--            <h3 class="font-weight-bold mt-2 text-center"> <h:outputText value="Advertising stand"/> </h3>-->
+<!--            <ui:repeat value="#{standView.items}" var="item">-->
+<!--                <div class="item-card card container mt-3 w-75">-->
+<!--                    <p class="font-weight-bold text-warning"> <h:outputText value="#{item.name}"/> </p>-->
+<!--                    <p class="font-weight-bold"> <h:outputText value="Price : #{item.price}"/> &#36; </p>-->
+<!--                    <p class="font-weight-bold"> <h:outputText value="Color : #{item.brand}"/> </p>-->
+<!--                    <img class="img-fluid w-100" src="resources/img/#{item.imgName}" alt="" />-->
+
+<!--                </div>-->
+<!--            </ui:repeat>-->
+
     </div>
 
-    <f:websocket channel="stand" onmessage="reloadPage()" />
 
 </h:body>
+<h:form>
+<f:websocket channel="stand" >
+    <f:ajax event="update" render="dataTable"/>
+</f:websocket>
+</h:form>
 </html>
